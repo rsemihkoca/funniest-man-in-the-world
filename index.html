@@ -42,10 +42,7 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease;
             aspect-ratio: 1 / 1;
-            height: 300px; /* Fixed height for consistent grid */
-            animation: dance 1s infinite ease-in-out;
-            animation-delay: calc(var(--random-delay) * 1s); /* Random delay for each image */
-
+            height: 300px;
         }
 
         .image-container.vertical {
@@ -120,45 +117,29 @@
         }
 
         @keyframes dance {
-            0% {
-                transform: scale(1) rotate(0deg);
-            }
-            25% {
-                transform: scale(1.1) rotate(10deg);
-            }
-            50% {
-                transform: scale(1) rotate(0deg);
-            }
-            75% {
-                transform: scale(1.1) rotate(-10deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(10deg); }
+            50% { transform: scale(1) rotate(0deg); }
+            75% { transform: scale(1.1) rotate(-10deg); }
+            100% { transform: scale(1) rotate(0deg); }
         }
 
         @keyframes danceAlt {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-20px) rotate(15deg);
-            }
-            50% {
-                transform: translateY(0) rotate(0deg);
-            }
-            75% {
-                transform: translateY(-10px) rotate(-15deg);
-            }
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
+            0% { transform: translateY(0); }
+            25% { transform: translateY(-20px); }
+            50% { transform: translateY(0); }
+            75% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
         }
 
-        .image-container.alternate-dance {
-            animation: danceAlt 1s infinite ease-in-out;
-            animation-delay: calc(var(--random-delay) * 1s);
+        .dance-animation {
+            animation: dance 1s infinite ease-in-out;
         }
+
+        .dance-alt-animation {
+            animation: danceAlt 1s infinite ease-in-out;
+        }
+
 
         @media (max-width: 1200px) {
             .gallery {
@@ -308,10 +289,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-        const imageContainers = document.querySelectorAll('.image-container');
-        imageContainers.forEach(container => {
-            const randomDelay = Math.random(); // Generate a random delay
-            container.style.setProperty('--random-delay', randomDelay);
+            const imageContainers = document.querySelectorAll('.image-container');
+            console.log(imageContainers);
+            imageContainers.forEach(container => {
+                const randomDelay = Math.random();
+                container.style.setProperty('--random-delay', randomDelay);
+                
+                const useAlternateDance = Math.random() > 0.5;
+                container.classList.add(useAlternateDance ? 'dance-alt-animation' : 'dance-animation');
+                container.style.animationDelay = `${randomDelay}s`;
             });
         });
     </script>
