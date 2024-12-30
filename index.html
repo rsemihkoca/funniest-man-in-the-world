@@ -145,7 +145,7 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop volume="0.2">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
     <button id="audioControl" class="audio-control-btn" aria-label="Toggle music">🎵</button>
@@ -225,13 +225,28 @@
 
         setInterval(createStar, 200);
     </script>
+        
     <script>
-        window.addEventListener('load', function() {
+        window.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('bgMusic');
             const audioControl = document.getElementById('audioControl');
-            
-            audioControl.click();
-            
+
+            // Ensure the audio can only play after user interaction
+            let audioInitialized = false;
+            audio.volume = 0.2;
+
+            const initializeAudio = () => {
+                if (!audioInitialized) {
+                    audio.play().then(() => {
+                        audioInitialized = true;
+                        console.log('Audio initialized and playing');
+                    }).catch(err => {
+                        console.error('Audio play failed:', err);
+                    });
+                }
+            };
+
+            // Attach event listener for the button to toggle music
             audioControl.addEventListener('click', function() {
                 if (audio.paused) {
                     audio.play();
@@ -241,6 +256,9 @@
                     audioControl.textContent = '🔇';
                 }
             });
+
+            // Add a global user interaction listener
+            document.addEventListener('click', initializeAudio, { once: true });
         });
     </script>
 
