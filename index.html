@@ -31,7 +31,7 @@
         .gallery {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 40px;
             margin-top: 40px;
         }
 
@@ -43,6 +43,9 @@
             transition: transform 0.3s ease;
             aspect-ratio: 1 / 1;
             height: 300px; /* Fixed height for consistent grid */
+            animation: dance 1s infinite ease-in-out;
+            animation-delay: calc(var(--random-delay) * 1s); /* Random delay for each image */
+
         }
 
         .image-container.vertical {
@@ -113,6 +116,24 @@
             }
             100% {
                 transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        @keyframes dance {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                transform: scale(1.1) rotate(10deg);
+            }
+            50% {
+                transform: scale(1) rotate(0deg);
+            }
+            75% {
+                transform: scale(1.1) rotate(-10deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
             }
         }
 
@@ -259,6 +280,16 @@
 
             // Add a global user interaction listener
             document.addEventListener('click', initializeAudio, { once: true });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const imageContainers = document.querySelectorAll('.image-container');
+        imageContainers.forEach(container => {
+            const randomDelay = Math.random(); // Generate a random delay
+            container.style.setProperty('--random-delay', randomDelay);
+            });
         });
     </script>
 
