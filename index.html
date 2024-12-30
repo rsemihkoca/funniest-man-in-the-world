@@ -27,9 +27,10 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
+
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             margin-top: 40px;
         }
@@ -41,14 +42,12 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease;
             aspect-ratio: 1 / 1;
+            height: 300px; /* Fixed height for consistent grid */
         }
 
         .image-container.vertical {
             aspect-ratio: 363 / 628;
-        }
-
-        .image-container:hover {
-            transform: scale(1.05);
+            grid-row: span 2; /* Make vertical images span two rows */
         }
 
         img {
@@ -75,11 +74,34 @@
             border-radius: 10px;
         }
 
+        .giphy-import {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
         .joke-container {
             padding: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             margin: 20px 0;
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .audio-controls:hover {
+            transform: scale(1.1);
         }
 
         @keyframes fall {
@@ -91,17 +113,39 @@
             }
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em;
-            }
+        @media (max-width: 1200px) {
             .gallery {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .image-container {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .image-container {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .image-container {
+                height: 250px;
             }
         }
     </style>
 </head>
 <body>
+    <audio id="bgMusic" loop autoplay>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
         <h1> 🎃 Sitcom Adam 🎃</h1>
         
@@ -114,6 +158,9 @@
                 <p>Bir gün bir adam yoğun ağlama teşhisiyle doktora başvurmuş doktor da demiş ki git palyaçoyu bul o seni güldürür.</p>
                 <p>O da demiş ki o palyaço benim... 🎃</p>
             </div>
+            <div class="image-container">
+                <iframe src="winnie.gif" frameBorder="0" class="giphy-import" allowFullScreen></iframe>
+            </div>
         </div>
 
         <div class="gallery">
@@ -124,16 +171,16 @@
                 <img src="img_2.jpeg" alt="Funny moment 2" />
             </div>
             <div class="image-container">
-                <img src="img_3.png" alt="Funny moment 3" />
+                <img src="img_6.png" alt="Funny moment 3" />
             </div>
             <div class="image-container">
-                <img src="img_4.png" alt="Funny moment 4" />
+                <img src="img_3.png" alt="Funny moment 4" />
             </div>
             <div class="image-container">
                 <img src="img_7.png" alt="Funny moment 5" />
             </div>
             <div class="image-container">
-                <img src="img_6.png" alt="Funny moment 6" />
+                <img src="img_4.png" alt="Funny moment 6" />
             </div>
             <div class="image-container">
                 <img src="img_8.png" alt="Funny moment 7" />
@@ -171,7 +218,17 @@
             }, duration * 1000);
         }
 
+        
         setInterval(createStar, 200);
+
+               // Add audio control functionality
+        const audio = document.getElementById('bgMusic');
+        const audioControl = document.getElementById('audioControl');
+        let isPlaying = true; // Set initial state to playing
+
+        window.addEventListener('load', () => {
+            audio.play();
+        });
     </script>
 </body>
 </html>
