@@ -40,6 +40,11 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease;
+            aspect-ratio: 1 / 1;
+        }
+
+        .image-container.vertical {
+            aspect-ratio: 363 / 628;
         }
 
         .image-container:hover {
@@ -48,7 +53,7 @@
 
         img {
             width: 100%;
-            height: 300px;
+            height: 100%;
             object-fit: cover;
         }
 
@@ -64,19 +69,17 @@
             max-width: 480px;
         }
 
-        .giphy-section p {
-            margin-top: 10px;
+        .giphy-embed {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
         }
 
-        .giphy-section a {
-            color: #fff;
-            text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .giphy-section a:hover {
-            opacity: 1;
+        .joke-container {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
         }
 
         @keyframes fall {
@@ -87,6 +90,15 @@
                 transform: translateY(100vh) rotate(360deg);
             }
         }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
     </style>
 </head>
 <body>
@@ -94,11 +106,13 @@
         <h1> 🎃 Sitcom Adam 🎃</h1>
         
         <div class="gallery">
-            
             <div class="image-container">
-              <iframe src="https://giphy.com/embed/l3vRlT2k2L35Cnn5C" width="360" height="264" style="border-radius: 10px;" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                <iframe src="https://giphy.com/embed/l3vRlT2k2L35Cnn5C" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             </div>
-            <div>        <p> 🎃 Bir palyaço varmış, bütün ağlayanları güldürürmüş. </p> <p>Bir gün bir adam yoğun ağlama teşhisiyle doktora başvurmuş doktor da demiş ki git palyaçoyu bul o seni güldürür. </p> <p> O da demiş ki o palyaço benim... 🎃</p>
+            <div class="joke-container">
+                <p>🎃 Bir palyaço varmış, bütün ağlayanları güldürürmüş.</p>
+                <p>Bir gün bir adam yoğun ağlama teşhisiyle doktora başvurmuş doktor da demiş ki git palyaçoyu bul o seni güldürür.</p>
+                <p>O da demiş ki o palyaço benim... 🎃</p>
             </div>
         </div>
 
@@ -119,16 +133,19 @@
                 <img src="img_7.png" alt="Funny moment 5" />
             </div>
             <div class="image-container">
-              <img src="img_6.png" alt="Funny moment 6" />
+                <img src="img_6.png" alt="Funny moment 6" />
             </div>
             <div class="image-container">
-              <img src="img_8.png" alt="Funny moment 6" />
+                <img src="img_8.png" alt="Funny moment 7" />
             </div>
             <div class="image-container">
-              <img src="img_9.png" alt="Funny moment 6" />
+                <img src="img_9.png" alt="Funny moment 8" />
             </div>
             <div class="image-container">
-                <img src="img_10.png" alt="Funny moment 6" />
+                <img src="img_10.png" alt="Funny moment 9" />
+            </div>
+            <div class="image-container vertical">
+                <img src="img_11.png" alt="Funny moment 10" />
             </div>
         </div>
     </div>
